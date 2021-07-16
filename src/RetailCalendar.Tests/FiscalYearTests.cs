@@ -41,7 +41,7 @@ namespace RetailCalendar.Tests
         [MemberData(nameof(FiscalYearIdStartDate))]
         public void FiscalYearStartTheoryById(int fiscalYear, DateTime expectedStartDate)
         {
-            var actualStartOfYear = FiscalYearExtension.StartOfYear(fiscalYear);
+            var actualStartOfYear = FiscalYearExtension.StartOfFiscalYear(fiscalYear);
             Assert.Equal(expectedStartDate, actualStartOfYear);
         }
 
@@ -59,7 +59,7 @@ namespace RetailCalendar.Tests
         [MemberData(nameof(FiscalYearDateStartDate))]
         public void FiscalYearStartTheoryByDate(DateTime date, DateTime expectedStartDate)
         {
-            var actualStartOfYear = date.StartOfYear();
+            var actualStartOfYear = date.StartOfFiscalYear();
             Assert.Equal(expectedStartDate, actualStartOfYear);
         }
 
@@ -87,7 +87,7 @@ namespace RetailCalendar.Tests
         [MemberData(nameof(FiscalYearIdEndDate))]
         public void FiscalYearEndTheoryById(int fiscalYear, DateTime expectedStartDate)
         {
-            var actualStartOfYear = FiscalYearExtension.EndOfYear(fiscalYear);
+            var actualStartOfYear = FiscalYearExtension.EndOfFiscalYear(fiscalYear);
             Assert.Equal(expectedStartDate, actualStartOfYear);
         }
 
@@ -105,7 +105,7 @@ namespace RetailCalendar.Tests
         [MemberData(nameof(FiscalYearDateEndDate))]
         public void FiscalYearEndTheoryByDate(DateTime date, DateTime expectedStartDate)
         {
-            var actualStartOfYear = date.EndOfYear();
+            var actualStartOfYear = date.EndOfFiscalYear();
             Assert.Equal(expectedStartDate, actualStartOfYear);
         }
 
@@ -133,7 +133,7 @@ namespace RetailCalendar.Tests
         [MemberData(nameof(DaysInFiscalYearById))]
         public void DaysInFiscalYearByIdTheory(int fiscalYear, int expectedDaysInYear)
         {
-            var actualDaysInYear = FiscalYearExtension.DaysInYear(fiscalYear);
+            var actualDaysInYear = FiscalYearExtension.DaysInFiscalYear(fiscalYear);
             Assert.Equal(expectedDaysInYear, actualDaysInYear);
         }
 
@@ -151,7 +151,7 @@ namespace RetailCalendar.Tests
         [MemberData(nameof(DaysInFiscalYearByDate))]
         public void DaysInFiscalYearByDateTheory(DateTime date, int expectedNumberOfDays)
         {
-            var actualNumberOfDays = date.DaysInYear();
+            var actualNumberOfDays = date.DaysInFiscalYear();
             Assert.Equal(expectedNumberOfDays, actualNumberOfDays);
         }
 
@@ -179,7 +179,7 @@ namespace RetailCalendar.Tests
         [MemberData(nameof(WeeksInFiscalYearById))]
         public void WeeksInFiscalYearByIdTheory(int fiscalYear, int expectedDaysInYear)
         {
-            var actualDaysInYear = FiscalYearExtension.WeeksInYear(fiscalYear);
+            var actualDaysInYear = FiscalYearExtension.WeeksInFiscalYear(fiscalYear);
             Assert.Equal(expectedDaysInYear, actualDaysInYear);
         }
 
@@ -197,7 +197,7 @@ namespace RetailCalendar.Tests
         [MemberData(nameof(WeeksInFiscalYearByDate))]
         public void WeeksInFiscalYearByDateTheory(DateTime date, int expectedNumberOfDays)
         {
-            var actualNumberOfDays = date.WeeksInYear();
+            var actualNumberOfDays = date.WeeksInFiscalYear();
             Assert.Equal(expectedNumberOfDays, actualNumberOfDays);
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.NetworkInformation;
 
 namespace RetailCalendar
 {
@@ -12,5 +13,9 @@ namespace RetailCalendar
                 target += 7;
             return from.AddDays(target - start).Date;
         }
+
+        public static DateTime AddWeeks(this DateTime date, int numberOfWeeks) => date.AddDays(numberOfWeeks * 7);
+
+        public static int DaysBetweenDates(DateTime startDate, DateTime endDate) => (endDate - startDate).Days + 1;
     }
 }
