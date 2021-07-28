@@ -10,68 +10,76 @@ namespace RetailCalendar
         public static DateTime StartOfFiscalMonth(this DateTime date)
         {
             var fiscalMonthDetails = date.FiscalMonthDetails();
-            return fiscalMonthDetails.Item5;
+            return fiscalMonthDetails.StartDate;
         }
 
         public static DateTime StartOfFiscalMonth(int fiscalYear, short fiscalMonth)
         {
             var fiscalMonthDetails = FiscalMonthDetails(fiscalYear, fiscalMonth);
-            return fiscalMonthDetails.Item5;
+            return fiscalMonthDetails.StartDate;
         }
 
         public static DateTime EndOfFiscalMonth(this DateTime date)
         {
             var fiscalMonthDetails = date.FiscalMonthDetails();
-            return fiscalMonthDetails.Item6;
+            return fiscalMonthDetails.EndDate;
         }
 
         public static DateTime EndOfFiscalMonth(int fiscalYear, short fiscalMonth)
         {
             var fiscalMonthDetails = FiscalMonthDetails(fiscalYear, fiscalMonth);
-            return fiscalMonthDetails.Item5;
+            return fiscalMonthDetails.EndDate;
         }
 
         public static int DaysInFiscalMonth(this DateTime date)
         {
             var fiscalMonthDetails = date.FiscalMonthDetails();
-            return fiscalMonthDetails.Item7;
+            return fiscalMonthDetails.NumberOfDays;
         }
 
         public static int DaysInFiscalMonth(int fiscalYear, short fiscalMonth)
         {
             var fiscalMonthDetails = FiscalMonthDetails(fiscalYear, fiscalMonth);
-            return fiscalMonthDetails.Item7;
+            return fiscalMonthDetails.NumberOfDays;
         }
 
-        public static (int, short, short, short, DateTime, DateTime, int) FiscalMonthDetails(this DateTime date)
+        public static short FiscalMonth(this DateTime date)
+        {
+            var fiscalMonthDetails = date.FiscalMonthDetails();
+            return fiscalMonthDetails.Month;
+        }
+
+        public static FiscalMonth FiscalMonthDetails(this DateTime date)
         {
             var fiscalYear = date.FiscalYear();
             var fiscalMonths = GetFiscalMonthsByFiscalYear(fiscalYear);
-            return fiscalMonths.Single(x => x.Item5 <= date && x.Item6 >= date);
+            return fiscalMonths.Single(x => x.StartDate <= date && x.EndDate >= date);
         }
 
-        public static (int, short, short, short, DateTime, DateTime, int) FiscalMonthDetails(int fiscalYear, short fiscalMonth)
+        public static FiscalMonth FiscalMonthDetails(int fiscalYear, short fiscalMonth)
         {
             var fiscalMonths = GetFiscalMonthsByFiscalYear(fiscalYear);
-            return fiscalMonths.Single(x => x.Item4 == fiscalMonth);
+            return fiscalMonths.Single(x => x.Month == fiscalMonth);
         }
 
-        public static IList<(int, short, short, short, DateTime, DateTime, int)> GetFiscalMonthsByFiscalYear(int fiscalYear)
+        public static IList<FiscalMonth> GetFiscalMonthsByFiscalYear(int fiscalYear)
         {
             var fiscalYearDetail = FiscalYearExtension.FiscalYearDetails(fiscalYear);
 
-            var fiscalMonthStart = fiscalYearDetail.Item2;
+            var fiscalMonthStart = fiscalYearDetail.StartDate;
 
-            var list = new List<(int, short, short, short, DateTime, DateTime, int)>();
+            var list = new List<FiscalMonth>();
 
             for (short month = 1; month <= 12; month++)
             {
                 var weeksInMonth = WeeksInFiscalMonth(month);
 
                 var startOfNextFiscalMonth = fiscalMonthStart.AddWeeks(weeksInMonth);
-                var endOfFiscalMonth = startOfNextFiscalMonth.AddDays(-1);
+                var endOfFiscalMonth = month == 12 ? fiscalYearDetail.EndDate : startOfNextFiscalMonth.AddDays(-1);
+                var numberOfDays = DateTimeExtension.DaysBetweenDates(fiscalMonthStart, endOfFiscalMonth);
+                var fiscalQuarter = fiscalMonthStart.FiscalQuarter();
 
-                list.Add((fiscalYear, 1, 1, month, fiscalMonthStart, endOfFiscalMonth, 0));
+                list.Add(new FiscalMonth(fiscalYear, fiscalQuarter, month, fiscalMonthStart, endOfFiscalMonth, numberOfDays));
 
                 fiscalMonthStart = startOfNextFiscalMonth;
             }

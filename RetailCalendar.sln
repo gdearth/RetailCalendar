@@ -5,7 +5,14 @@ VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RetailCalendar", "src\RetailCalendar\RetailCalendar.csproj", "{3EAD57D9-CC5D-4259-824D-BF55E7AFA6AC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RetailCalendar.Tests", "src\RetailCalendar.Tests\RetailCalendar.Tests.csproj", "{595E278A-57FF-487F-BAA5-BB8A7C70103D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RetailCalendar.Tests", "tests\RetailCalendar.Tests\RetailCalendar.Tests.csproj", "{595E278A-57FF-487F-BAA5-BB8A7C70103D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5E973030-F777-429A-931F-155E0D64C0B7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{83F1584C-4428-4956-BC7F-8C6B89EFA1C5}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +31,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{595E278A-57FF-487F-BAA5-BB8A7C70103D} = {5E973030-F777-429A-931F-155E0D64C0B7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D2C255C0-4112-4846-93FB-2885A7ED52AC}

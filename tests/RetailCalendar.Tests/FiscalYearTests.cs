@@ -7,34 +7,75 @@ namespace RetailCalendar.Tests
 {
     public class FiscalYearTests
     {
+        [Theory]
+        [MemberData(nameof(FiscalYearDetail))]
+        public void FiscalYearDetailTheoryByConstructor(FiscalYear expectedDetails)
+        {
+            var actualDetails = new FiscalYear(expectedDetails.Year, expectedDetails.StartDate,
+                expectedDetails.EndDate, expectedDetails.NumberOfDays);
+            Assert.Equal(expectedDetails, actualDetails);
+        }
 
         [Theory]
-        [MemberData(nameof(FiscalYearDetailById))]
-        public void FiscalYearDetailTheoryById(DateTime date, (int, DateTime, DateTime, int) expectedDetails)
+        [MemberData(nameof(FiscalYearDetail))]
+        public void FiscalYearDetailTheoryById(FiscalYear expectedDetails)
+        {
+            var actualDetails = new FiscalYear(expectedDetails.Year);
+            Assert.Equal(expectedDetails, actualDetails);
+        }
+
+        public static IEnumerable<object[]> FiscalYearDetail =>
+            new List<object[]>
+            {
+                new object[] { new FiscalYear(2017, new DateTime(2017, 1, 29), new DateTime(2018, 2, 3), 371)}, // 53 Week year, 53rd week starts on 1/28 the last day that indicates a 53rd week
+
+                new object[] { new FiscalYear(2020, new DateTime(2020, 2, 2), new DateTime(2021, 1, 30), 364) },
+                new object[] { new FiscalYear(2020, new DateTime(2020, 2, 2), new DateTime(2021, 1, 30), 364) },
+                new object[] { new FiscalYear(2020, new DateTime(2020, 2, 2),  new DateTime(2021, 1, 30), 364) },
+                new object[] { new FiscalYear(2020, new DateTime(2020, 2, 2), new DateTime(2021, 1, 30), 364) },
+                new object[] { new FiscalYear(2020, new DateTime(2020, 2, 2), new DateTime(2021, 1, 30), 364) },
+
+                new object[] { new FiscalYear(2022, new DateTime(2022, 1, 30),  new DateTime(2023, 1, 28), 364)},
+
+                new object[] { new FiscalYear(2023, new DateTime(2023, 1, 29),  new DateTime(2024, 2, 3), 371) }, // 53 Week year
+                new object[] { new FiscalYear(2023, new DateTime(2023, 1, 29), new DateTime(2024, 2, 3), 371) }, // 53 Week year
+                new object[] { new FiscalYear(2023, new DateTime(2023, 1, 29), new DateTime(2024, 2, 3), 371) }, // 53 Week year
+                new object[] { new FiscalYear(2023, new DateTime(2023, 1, 29), new DateTime(2024, 2, 3), 371) }, // 53 Week year
+                new object[] { new FiscalYear(2023, new DateTime(2023, 1, 29), new DateTime(2024, 2, 3), 371) }, // 53 Week year
+                new object[] { new FiscalYear(2023, new DateTime(2023, 1, 29), new DateTime(2024, 2, 3), 371) }, // 53 Week year
+
+                new object[] { new FiscalYear(2024, new DateTime(2024, 2, 4), new DateTime(2025, 2, 1), 364) }
+            };
+
+        [Theory]
+        [MemberData(nameof(FiscalYearDetailByDate))]
+        public void FiscalYearDetailTheoryByDate(DateTime date, FiscalYear expectedDetails)
         {
             var actualDetails = date.FiscalYearDetails();
             Assert.Equal(expectedDetails, actualDetails);
         }
 
-        public static IEnumerable<object[]> FiscalYearDetailById =>
+        public static IEnumerable<object[]> FiscalYearDetailByDate =>
             new List<object[]>
             {
-                new object[] { new DateTime(2020, 2, 2),  (2020, new DateTime(2020, 2, 2), new DateTime(2021, 1, 30), 364) },
-                new object[] { new DateTime(2020, 2, 3), (2020, new DateTime(2020, 2, 2), new DateTime(2021, 1, 30), 364) },
-                new object[] { new DateTime(2020, 12, 31), (2020, new DateTime(2020, 2, 2),  new DateTime(2021, 1, 30), 364) },
-                new object[] { new DateTime(2021, 1, 1), (2020, new DateTime(2020, 2, 2), new DateTime(2021, 1, 30), 364) },
-                new object[] { new DateTime(2021, 1, 30), (2020, new DateTime(2020, 2, 2), new DateTime(2021, 1, 30), 364) },
+                new object[] { new DateTime(2018, 1, 28), new FiscalYear(2017, new DateTime(2017, 1, 29), new DateTime(2018, 2, 3), 371)}, // 53 Week year, 53rd week starts on 1/28 the last day that indicates a 53rd week
 
-                new object[] { new DateTime(2023, 1, 28), (2022, new DateTime(2022, 1, 30),  new DateTime(2023, 1, 28), 364)},
+                new object[] { new DateTime(2020, 2, 2),  new FiscalYear(2020, new DateTime(2020, 2, 2), new DateTime(2021, 1, 30), 364) },
+                new object[] { new DateTime(2020, 2, 3), new FiscalYear(2020, new DateTime(2020, 2, 2), new DateTime(2021, 1, 30), 364) },
+                new object[] { new DateTime(2020, 12, 31), new FiscalYear(2020, new DateTime(2020, 2, 2),  new DateTime(2021, 1, 30), 364) },
+                new object[] { new DateTime(2021, 1, 1), new FiscalYear(2020, new DateTime(2020, 2, 2), new DateTime(2021, 1, 30), 364) },
+                new object[] { new DateTime(2021, 1, 30), new FiscalYear(2020, new DateTime(2020, 2, 2), new DateTime(2021, 1, 30), 364) },
 
-                new object[] { new DateTime(2023, 1, 29), (2023, new DateTime(2023, 1, 29),  new DateTime(2024, 2, 3), 371) }, // 53 Week year
-                new object[] { new DateTime(2023, 2, 1), (2023, new DateTime(2023, 1, 29), new DateTime(2024, 2, 3), 371) }, // 53 Week year
-                new object[] { new DateTime(2023, 2, 1), (2023, new DateTime(2023, 1, 29), new DateTime(2024, 2, 3), 371) }, // 53 Week year
-                new object[] { new DateTime(2023, 12, 31), (2023, new DateTime(2023, 1, 29), new DateTime(2024, 2, 3), 371) }, // 53 Week year
-                new object[] { new DateTime(2024, 1, 31), (2023, new DateTime(2023, 1, 29), new DateTime(2024, 2, 3), 371) }, // 53 Week year
-                new object[] { new DateTime(2024, 2, 3), (2023, new DateTime(2023, 1, 29), new DateTime(2024, 2, 3), 371) }, // 53 Week year
+                new object[] { new DateTime(2023, 1, 28), new FiscalYear(2022, new DateTime(2022, 1, 30),  new DateTime(2023, 1, 28), 364)},
 
-                new object[] { new DateTime(2024, 2, 4), (2024, new DateTime(2024, 2, 4), new DateTime(2025, 2, 1), 364) }
+                new object[] { new DateTime(2023, 1, 29), new FiscalYear(2023, new DateTime(2023, 1, 29),  new DateTime(2024, 2, 3), 371) }, // 53 Week year
+                new object[] { new DateTime(2023, 2, 1), new FiscalYear(2023, new DateTime(2023, 1, 29), new DateTime(2024, 2, 3), 371) }, // 53 Week year
+                new object[] { new DateTime(2023, 2, 1), new FiscalYear(2023, new DateTime(2023, 1, 29), new DateTime(2024, 2, 3), 371) }, // 53 Week year
+                new object[] { new DateTime(2023, 12, 31), new FiscalYear(2023, new DateTime(2023, 1, 29), new DateTime(2024, 2, 3), 371) }, // 53 Week year
+                new object[] { new DateTime(2024, 1, 31), new FiscalYear(2023, new DateTime(2023, 1, 29), new DateTime(2024, 2, 3), 371) }, // 53 Week year
+                new object[] { new DateTime(2024, 2, 3), new FiscalYear(2023, new DateTime(2023, 1, 29), new DateTime(2024, 2, 3), 371) }, // 53 Week year
+
+                new object[] { new DateTime(2024, 2, 4), new FiscalYear(2024, new DateTime(2024, 2, 4), new DateTime(2025, 2, 1), 364) }
             };
 
         [Theory]

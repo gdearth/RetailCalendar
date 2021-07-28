@@ -9,13 +9,13 @@ namespace RetailCalendar
         /// </summary>
         /// <param name="date"></param>
         /// <returns>Fiscal Year Number, Start of Fiscal Year, End of Fiscal Year, Number of Days in fiscal year</returns>
-        public static (int, DateTime, DateTime, int) FiscalYearDetails(this DateTime date)
+        public static FiscalYear FiscalYearDetails(this DateTime date)
         {
             var startOfYear = date.StartOfFiscalYear();
             var endOfYear = date.EndOfFiscalYear();
             var fiscalYear = startOfYear.FiscalYearFromStartOfYear();
             var daysInYear = date.DaysInFiscalYear();
-            return (fiscalYear, startOfYear, endOfYear, daysInYear);
+            return new FiscalYear(fiscalYear, startOfYear, endOfYear, daysInYear);
         }
 
         /// <summary>
@@ -23,12 +23,12 @@ namespace RetailCalendar
         /// </summary>
         /// <param name="fiscalYear"></param>
         /// <returns>Fiscal Year Number, Start of Fiscal Year, End of Fiscal Year, Number of Days in fiscal year</returns>
-        public static (int, DateTime, DateTime, int) FiscalYearDetails(int fiscalYear)
+        public static FiscalYear FiscalYearDetails(int fiscalYear)
         {
             var startOfYear = StartOfFiscalYear(fiscalYear);
             var endOfYear = EndOfFiscalYear(fiscalYear);
             var daysInYear = DaysInFiscalYear(fiscalYear);
-            return (fiscalYear, startOfYear, endOfYear, daysInYear);
+            return new FiscalYear(fiscalYear, startOfYear, endOfYear, daysInYear);
         }
 
         public static int FiscalYear(this DateTime date)
@@ -52,7 +52,7 @@ namespace RetailCalendar
 
         public static DateTime StartOfFiscalYear(int fiscalYear)
         {
-            return new DateTime(fiscalYear, 1, 28).NextByDayOfWeek(DayOfWeek.Sunday);
+            return new DateTime(fiscalYear, 1, 29).NextOrEqualByDayOfWeek(DayOfWeek.Sunday);
         }
 
         public static DateTime EndOfFiscalYear(this DateTime date)
@@ -63,7 +63,7 @@ namespace RetailCalendar
 
         public static DateTime EndOfFiscalYear(int fiscalYear)
         {
-            return new DateTime(fiscalYear + 1, 1, 27).NextByDayOfWeek(DayOfWeek.Saturday);
+            return new DateTime(fiscalYear + 1, 1, 28).NextOrEqualByDayOfWeek(DayOfWeek.Saturday);
         }
 
         public static int DaysInFiscalYear(this DateTime date)
