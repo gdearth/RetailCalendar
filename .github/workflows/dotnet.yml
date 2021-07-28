@@ -17,7 +17,8 @@ jobs:
 
     - name: Get Build Version
       run: |
-        Get-ChildItem
+        $children = Get-ChildItem
+        Write-Host $children
         Import-Module .\build\GetBuildVersion.psm1
         Write-Host $Env:GITHUB_REF
         $version = GetBuildVersion -VersionString $Env:GITHUB_REF
