@@ -19,8 +19,8 @@ jobs:
       run: |
         $children = Get-ChildItem
         Write-Host $children
-        Import-Module .\build\GetBuildVersion.psm1
         Write-Host $Env:GITHUB_REF
+        Import-Module .\build\GetBuildVersion.psm1
         $version = GetBuildVersion -VersionString $Env:GITHUB_REF
         echo "BUILD_VERSION=$version" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
       shell: pwsh
