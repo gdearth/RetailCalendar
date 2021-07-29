@@ -27,13 +27,15 @@ jobs:
       run: dotnet restore
     
     - name: Build
-      run: dotnet build --configuration Release --no-restore 
+      run: dotnet build --configuration Release --no-restore
+      working-directory: ./RetailCalendar/
     
     - name: Test
       run: dotnet test /p:Configuration=Release --no-build --verbosity normal
+      working-directory: ./RetailCalendar/
 
     - name: Publish  
       uses: brandedoutcast/publish-nuget@v2.5.2  
       with:   
-       PROJECT_FILE_PATH: Extensions/src/RetailCalendar.csproj  
+       PROJECT_FILE_PATH: RetailCalendar/src/RetailCalendar.csproj  
        NUGET_KEY: ${{secrets.NUGET_API_KEY}}  
