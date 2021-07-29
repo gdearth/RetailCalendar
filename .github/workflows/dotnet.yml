@@ -33,6 +33,7 @@ jobs:
       run: dotnet test /p:Configuration=Release --no-build --verbosity normal
 
     - name: Publish  
+      if: startsWith(github.ref, 'refs/heads/release')
       uses: brandedoutcast/publish-nuget@v2.5.2  
       with:   
        PROJECT_FILE_PATH: src/RetailCalendar/RetailCalendar.csproj  
