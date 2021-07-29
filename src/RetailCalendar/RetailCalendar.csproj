@@ -13,6 +13,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RepositoryType>git</RepositoryType>
     <Description>Extension methods used for getting Retail Calendar information, based on the NRF 4-5-4 calendar.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
 </Project>
