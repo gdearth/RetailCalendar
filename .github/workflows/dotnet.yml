@@ -61,7 +61,7 @@ jobs:
       run: dotnet restore
     
     - name: Build
-      run: dotnet build --configuration Release -p:Version=$BUILD_VERSION -p:AsssemblyVersion=$BUILD_VERSION --no-restore 
+      run: dotnet build --configuration Release -p:Version= $BUILD_VERSION -p:AsssemblyVersion= $BUILD_VERSION --no-restore 
     
     - name: Test
       run: dotnet test /p:Configuration=Release --no-build --verbosity normal
