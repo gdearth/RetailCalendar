@@ -1,15 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Authors>Gregg Dearth</Authors>
-    <Company />
+    <Authors>gd383608</Authors>
+    <Company>gd383608</Company>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/gdearth/RetailCalendar</RepositoryUrl>
     <PackageTags>ratail calendar</PackageTags>
     <AssemblyVersion>0.0.0.1</AssemblyVersion>
     <FileVersion>0.0.0.1</FileVersion>
     <Version>0.0.1</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RepositoryType>git</RepositoryType>
+    <Description>Extension methods used for getting Retail Calendar information, based on the NRF 4-5-4 calendar.</Description>
   </PropertyGroup>
 
 </Project>
