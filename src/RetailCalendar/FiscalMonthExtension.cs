@@ -87,6 +87,18 @@ namespace RetailCalendar
             return list;
         }
 
+        public static IList<FiscalMonth> GetFiscalMonthsByQuarter(this FiscalQuarter fiscalQuarter)
+        {
+            var months = GetFiscalMonthsByFiscalYear(fiscalQuarter.Year);
+            return months.Where(x => x.Quarter == fiscalQuarter.Quarter).ToList();
+        }
+
+        public static IList<FiscalMonth> GetFiscalMonthsByQuarter(int fiscalYear, short fiscalQuarter)
+        {
+            var months = GetFiscalMonthsByFiscalYear(fiscalYear);
+            return months.Where(x => x.Quarter == fiscalQuarter).ToList();
+        }
+
         private static short WeeksInFiscalMonth(short month)
         {
             short weeksInMonth;
