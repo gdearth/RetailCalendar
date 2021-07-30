@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace RetailCalendar
 {
@@ -47,5 +49,26 @@ namespace RetailCalendar
 
         public static short FiscalWeek(this DateTime date) => 
             (short) (DateTimeExtension.DaysBetweenDates(date.StartOfFiscalYear(), date.StartOfFiscalWeek()).DaysToWeeks() + 1);
+
+        public static IList<FiscalWeek> FiscalWeeksByMonth(this FiscalMonth fiscalMonth)
+        {
+            var weeksInMonth = fiscalMonth.NumberOfDays.DaysToWeeks();
+            var weekStartDate = fiscalMonth.StartDate;
+            var fiscalWeeks = new List<FiscalWeek>();
+
+            while (weekStartDate < fiscalMonth.EndDate)
+            {
+                fiscalWeeks.Add(weekStartDate.FiscalWeekDetails());
+                weekStartDate.AddWeeks(1);
+            }
+
+            return fiscalWeeks;
+        }
+
+        public static IList<FiscalWeek> FiscalWeeksByMonth(int fiscalYear, short fiscalMonth)
+        {
+            var month = FiscalMonthExtension.FiscalMonthDetails(fiscalYear, fiscalMonth);
+            return month.FiscalWeeksByMonth();
+        }
     }
 }

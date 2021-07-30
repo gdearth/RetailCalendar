@@ -102,12 +102,12 @@ namespace RetailCalendar
             return startOfFiscalSeason == startOfYear ? Season.Spring : Season.Fall;
         }
 
-        public static List<FiscalSeason> SeasonsByYear(this FiscalYear year)
+        public static List<FiscalSeason> FiscalSeasonsByYear(this FiscalYear year)
         {
-            return SeasonsByYear(year.Year);
+            return FiscalSeasonsByYear(year.Year);
         }
 
-        public static List<FiscalSeason> SeasonsByYear(int year)
+        public static List<FiscalSeason> FiscalSeasonsByYear(int year)
         {
             var seasonStart = StartOfFiscalSeason(year, Season.Spring);
             var endSeason = EndOfFiscalSeason(year, Season.Spring);
