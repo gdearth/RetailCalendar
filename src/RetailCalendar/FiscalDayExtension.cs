@@ -36,7 +36,7 @@ namespace RetailCalendar
             var fiscalDate = fiscalWeek.StartDate;
             var fiscalDays = new List<FiscalDay>();
             
-            while (fiscalDate < fiscalWeek.EndDate)
+            while (fiscalDate <= fiscalWeek.EndDate)
             {
                 fiscalDays.Add(fiscalDate.FiscalDayDetails());
                 fiscalDate = fiscalDate.AddDays(1);
