@@ -1,6 +1,7 @@
 ﻿using RetailCalendar;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace RetailCalendar.Tests
@@ -87,6 +88,15 @@ namespace RetailCalendar.Tests
         {
             var actual = FiscalWeekExtension.EndOfFiscalWeek(expectedDetails.Year, expectedDetails.Week);
             Assert.Equal(expectedDetails.EndDate, actual);
+        }
+
+        [Theory]
+        [MemberData(nameof(FiscalWeekDetail))]
+        public void FiscalWeeksByMonthTheory(FiscalWeek expectedDetails)
+        {
+            var actual = FiscalWeekExtension.FiscalWeeksByMonth(expectedDetails.Year, expectedDetails.Month);
+            var actualWeek = actual.First(x => x.Week == expectedDetails.Week);
+            Assert.Equal(expectedDetails, actualWeek);
         }
     }
 }
