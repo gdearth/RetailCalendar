@@ -59,7 +59,7 @@ namespace RetailCalendar
             while (weekStartDate < fiscalMonth.EndDate)
             {
                 fiscalWeeks.Add(weekStartDate.FiscalWeekDetails());
-                weekStartDate.AddWeeks(1);
+                weekStartDate = weekStartDate.AddWeeks(1);
             }
 
             return fiscalWeeks;
