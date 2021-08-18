@@ -2,7 +2,7 @@
 {
     public enum Season
     {
-        Spring,
-        Fall
+        Spring = 1,
+        Fall = 2
     }
 }
